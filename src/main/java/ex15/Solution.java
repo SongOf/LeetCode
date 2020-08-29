@@ -1,41 +1,39 @@
 package ex15;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> res=new ArrayList<>();
+        int numsLength=nums.length;
+        Set<List<Integer>> res = new HashSet<>();
         List<Integer> list=null;
-        if(nums.length<3){
-            return res;
-        }
         Arrays.sort(nums);
-        int i,j,k;
-        for(i=1;i<nums.length-1;i++){
-            for (j=0;j<i;j++){
-                for(k=i+1;k<nums.length;k++){
-                    if(nums[i]+nums[j]+nums[k]==0){
-                        list=new ArrayList<>();
-                        list.add(nums[j]);
-                        list.add(nums[i]);
-                        list.add(nums[k]);
-                        res.add(list);
-                        if(nums[i]==0){
-                            while (nums[i]==0 && i<nums.length-1){
-                                i++;
-                            }
-                            i--;
-                        }
-                    }
+        int i,j,k,sum;
+        for(i=0;i<numsLength-2 && nums[i]<=0;i++){
+            j=i+1;
+            k=numsLength-1;
+            while (k>j){
+                sum=nums[i]+nums[j]+nums[k];
+                if(sum==0){
+                    list=new ArrayList<>();
+                    list.add(nums[i]);
+                    list.add(nums[j]);
+                    list.add(nums[k]);
+                    res.add(list);
+                    j++;
+                    k--;
+                }
+                else if(sum>0){
+                    k--;
+                }else {
+                    j++;
                 }
             }
         }
-        return res;
+        return new ArrayList(res);
     }
     public static void main(String[] args){
-        int[] nums ={3,0,-2,-1,1,2};
+        int[] nums ={-1,-2,-3,4,1,3,0,3,-2,1,-2,2,-1,1,-5,4,-3};
         Solution solution = new Solution();
         List<List<Integer>> list=solution.threeSum(nums);
         for (int i=0;i<list.size();i++){

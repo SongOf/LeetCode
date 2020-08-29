@@ -1,7 +1,8 @@
 package ex15;
 
 import java.util.*;
-
+//Set set = new HashSet(list);
+//List list = new ArrayList(set);
 public class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         int numsLength=nums.length;
@@ -30,7 +31,7 @@ public class Solution {
                 }
             }
         }
-        return new ArrayList(res);
+        return new ArrayList<>(res);
     }
     public static void main(String[] args){
         int[] nums ={-1,-2,-3,4,1,3,0,3,-2,1,-2,2,-1,1,-5,4,-3};

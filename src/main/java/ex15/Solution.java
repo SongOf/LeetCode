@@ -6,7 +6,7 @@ import java.util.*;
 public class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         int numsLength=nums.length;
-        Set<List<Integer>> res = new HashSet<>();
+        Set<List<Integer>> res = new HashSet();
         List<Integer> list=null;
         Arrays.sort(nums);
         int i,j,k,sum;
@@ -16,7 +16,7 @@ public class Solution {
             while (k>j){
                 sum=nums[i]+nums[j]+nums[k];
                 if(sum==0){
-                    list=new ArrayList<>();
+                    list=new ArrayList();
                     list.add(nums[i]);
                     list.add(nums[j]);
                     list.add(nums[k]);
@@ -31,7 +31,7 @@ public class Solution {
                 }
             }
         }
-        return new ArrayList<>(res);
+        return new ArrayList(res);
     }
     public static void main(String[] args){
         int[] nums ={-1,-2,-3,4,1,3,0,3,-2,1,-2,2,-1,1,-5,4,-3};

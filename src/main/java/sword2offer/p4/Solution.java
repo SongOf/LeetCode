@@ -2,14 +2,23 @@ package sword2offer.p4;
 
 public class Solution {
     public boolean findNumberIn2DArray(int[][] matrix, int target) {
-        for(int i=0;matrix.length>0 && i<matrix.length;i++){
-            for(int j=0;matrix[i].length>0 && j<matrix[i].length && matrix[i][j]<=target;j++){
-                if(matrix[i][j]==target){
-                    return true;
-                }
-            }
+        if(matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) return false;
+        int m = matrix.length;
+        for(int i = 0; i < m && matrix[i][0] <= target; i++) {
+            if(binarySearch(matrix[i], target) != -1) return true;
         }
         return false;
+    }
+    public int binarySearch(int[] nums, int target) {
+        int low = 0;
+        int high = nums.length - 1;
+        while(low <= high) {
+            int mid = (low + high) / 2;
+            if(nums[mid] == target) return mid;
+            else if(nums[mid] > target) high = mid - 1;
+            else low = mid + 1;
+        }
+        return -1;
     }
     public static void main(String[] args){
         int[][] matrix= {

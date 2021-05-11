@@ -1,25 +1,26 @@
 package sword2offer.p7;
 
-import java.util.Arrays;
-//Arrays.copyOfRange()
+import java.util.HashMap;
+import java.util.Map;
+
 public class Solution {
+    private Map<Integer, Integer> indexMap;
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        int nodesLength=preorder.length;
-        if(nodesLength==0){
-            return null;
+        indexMap = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            indexMap.put(inorder[i], i);
         }
-        int rootValue=preorder[0];
-        int rootIndex=0;
-        for(int i=0;i<nodesLength;i++){
-            if(inorder[i]==rootValue){
-                rootIndex=i;
-                i=nodesLength;
-            }
-        }
-        TreeNode rootTreeNode=new TreeNode(rootValue);
-        rootTreeNode.left=buildTree(Arrays.copyOfRange(preorder,1,1+rootIndex),Arrays.copyOfRange(inorder,0,rootIndex));
-        rootTreeNode.right=buildTree(Arrays.copyOfRange(preorder,1+rootIndex,nodesLength),Arrays.copyOfRange(inorder,1+rootIndex,nodesLength));
-        return rootTreeNode;
+        return buildTreeCore(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
+    }
+    public TreeNode buildTreeCore(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd) {
+        if(preStart > preEnd) return null;
+        int val = preorder[preStart];
+        TreeNode root = new TreeNode(val);
+        int inLoc = indexMap.get(val);
+        int len = inLoc - inStart;
+        root.left = buildTreeCore(preorder, preStart + 1, preStart + len, inorder, inStart, inLoc - 1);
+        root.right = buildTreeCore(preorder, preStart + len + 1, preEnd, inorder, inLoc + 1, inEnd);
+        return root;
     }
     public static void main(String[] args){
         int[] preorder = {3,9,20,15,7};

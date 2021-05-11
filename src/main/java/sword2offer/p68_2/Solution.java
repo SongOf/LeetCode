@@ -1,33 +1,34 @@
 package sword2offer.p68_2;
 //树的解法
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if(root==null||root==p||root==q){
-            return root;
+        if(root == null) return null;
+
+        List<TreeNode> path1 = new ArrayList<>();
+        findPath(root, p, path1);
+        List<TreeNode> path2 = new ArrayList<>();
+        findPath(root, q, path2);
+        int pos = 0;
+        TreeNode tar = null;
+        while (pos < path1.size() && pos < path2.size()) {
+            if(path1.get(pos).val != path2.get(pos).val) break;
+            tar = path1.get(pos);
+            pos ++;
         }
-        LinkedList<TreeNode> targerPPath=new LinkedList<>();
-        LinkedList<TreeNode> targerQPath=new LinkedList<>();
-        if(findTargerPath(root,p,targerPPath)&&findTargerPath(root,q,targerQPath)){
-            int pos=0;
-            while (pos<targerPPath.size()&&pos<targerQPath.size()&&targerPPath.get(pos)==targerQPath.get(pos)){
-                pos++;
-            }
-            return targerPPath.get(pos-1);
-        }else {
-            return null;
-        }
+        return tar;
     }
-    public boolean findTargerPath(TreeNode root,TreeNode target,LinkedList<TreeNode> path){
-        if(root==null){
-            return false;
-        }
+    public boolean findPath(TreeNode root, TreeNode tar, List<TreeNode> path) {
+        if(root == null) return false;
+
         path.add(root);
-        if(root.val==target.val||findTargerPath(root.left,target,path)||findTargerPath(root.right,target,path)){
+        if(root.val == tar.val || findPath(root.left, tar, path) || findPath(root.right, tar, path)) {
             return true;
-        } else {
-            path.removeLast();
+        }
+        else {
+            path.remove(path.size() - 1);
             return false;
         }
     }

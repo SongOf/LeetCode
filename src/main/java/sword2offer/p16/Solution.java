@@ -2,23 +2,23 @@ package sword2offer.p16;
 
 public class Solution {
     public double myPow(double x, int n) {
-        if(n==0){
-            return 1.0000;
-        }else if(n==1){
-            return x;
+        if(x == 0) return 0;
+        long exp = n;
+        double res = 1.0;
+        if(exp < 0) {
+            exp = - exp;
+            x = 1 / x;
         }
-        int exp=n>=0?n:-n;
-        double[] res=new double[exp+1];
-        res[0]=1.0;
-        res[1]=x;
-        for(int i=2;i<=exp;i=i*2){
-            res[i]=res[i/2]*res[i/2]*(i-i/2*2);
+        while (exp > 0) {
+            if((exp & 1) == 1) res *= x;
+            x = x * x;
+            exp = exp >> 1;
         }
-        return n>=0?res[exp]:1/res[exp];
+        return res;
     }
     public static void main(String[] args){
         double x=2.00000;
-        int n=-2;
+        int n=-2147483648;
         Solution solution = new Solution();
         System.out.println(solution.myPow(x,n));
     }

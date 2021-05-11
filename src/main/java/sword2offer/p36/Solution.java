@@ -1,38 +1,38 @@
 package sword2offer.p36;
 
+/**
+ * @author SongOf
+ * @ClassName Solution1
+ * @Description
+ * @Date 2021/5/10 11:06
+ * @Version 1.0
+ */
 public class Solution {
-    private Node lastNode=null;
+    private Node head;
+    private Node lastNode;
     public Node treeToDoublyList(Node root) {
-        if(root==null){
-            return null;
-        }
+        if(root == null) return null;
+
         treeToDoublyListCore(root);
-        Node curNode=lastNode;
-        while (curNode!=null&&curNode.left!=null){
-            curNode=curNode.left;
-        }
-        curNode.left=lastNode;
-        lastNode.right=curNode;
-//        for(Node i=curNode;i!=null;i=i.right){
-//            System.out.println(i.val);
-//        }
-        return curNode;
+        head.left = lastNode;
+        lastNode.right = head;
+        return head;
     }
-    public void treeToDoublyListCore(Node root){
-        if(root==null){
-            return;
+    public void treeToDoublyListCore(Node root) {
+        if(root == null) return;
+
+        treeToDoublyListCore(root.left);
+
+        if(lastNode == null) {
+            head = root;
         }
-        if(root.left!=null){
-            treeToDoublyListCore(root.left);
+        else {
+            lastNode.right = root;
+            root.left = lastNode;
         }
-        if(lastNode!=null){
-            lastNode.right=root;
-            root.left=lastNode;
-        }
-        lastNode=root;
-        if(root.right!=null){
-            treeToDoublyListCore(root.right);
-        }
+        lastNode = root;
+
+        treeToDoublyListCore(root.right);
     }
     public static void main(String[] args){
         Node node1=new Node(4);

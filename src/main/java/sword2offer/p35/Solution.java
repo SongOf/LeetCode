@@ -1,6 +1,12 @@
 package sword2offer.p35;
 
 public class Solution {
+    private final int a;
+
+    public Solution(int a) {
+        this.a = a;
+    }
+
     public Node copyRandomList(Node head) {
         if(head==null){
             return null;
@@ -39,14 +45,7 @@ public class Solution {
         }
         list1.next=null;
         list2.next=null;
-//        while (list1Head!=null){
-//            System.out.println(list1Head.val);
-//            list1Head=list1Head.next;
-//        }
-//        while (list2Head!=null){
-//            System.out.println(list2Head.val);
-//            list2Head=list2Head.next;
-//        }
+
         return list2Head.next;
     }
     public static void main(String[] args){
@@ -57,7 +56,9 @@ public class Solution {
         node2.random=node2;
         head.random=node2;
         head.next=node2;
-        Solution solution = new Solution();
+        Solution solution = new Solution(1);
         System.out.println(solution.copyRandomList(head));
+
+        System.out.println(solution.a);
     }
 }

@@ -1,19 +1,13 @@
 package sword2offer.p3;
 
+import java.util.HashSet;
+
 public class Solution {
     public int findRepeatNumber(int[] nums) {
-        int numsLength=nums.length;
-        if(numsLength==1){
-            return -1;
-        }
-        int[] repeatMark=new int[numsLength];
-        for(int i=0;i<numsLength;i++){
-            repeatMark[nums[i]]++;
-        }
-        for(int j=0;j<numsLength;j++){
-            if(repeatMark[j]>1 ){
-                return j;
-            }
+        HashSet<Integer> numSet = new HashSet<>();
+        for(int i = 0; i < nums.length; i++) {
+            if(numSet.contains(nums[i])) return nums[i];
+            numSet.add(nums[i]);
         }
         return -1;
     }

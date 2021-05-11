@@ -1,6 +1,11 @@
 package ex3;
 //java char共128位 其ASCii码 0-127 可以用(int)强制转换 如(int)(s.charAt(j))
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         if(s.length()==1){

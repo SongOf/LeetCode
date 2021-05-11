@@ -2,16 +2,13 @@ package sword2offer.p5;
 //关键在于要以追加的方式
 public class Solution {
     public String replaceSpace(String s) {
-        int sLen=s.length();
-        StringBuffer res=new StringBuffer();
-        for(int i=0;i<sLen;i++){
-            if(s.charAt(i)==' ') {
-                res.append("%20");
-            }else {
-                res.append(s.charAt(i));
-            }
+        StringBuffer sb = new StringBuffer();
+        char[] chs = s.toCharArray();
+        for(int i = 0; i < chs.length; i++) {
+            if(chs[i] == ' ') sb.append("%20");
+            else sb.append(chs[i]);
         }
-        return res.toString();
+        return sb.toString();
     }
     public static void main(String[] args){
         String s="We are happy.";

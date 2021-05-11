@@ -2,10 +2,12 @@ package ex46;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 交换 性能要比dfs快
+ * */
 public class Solution {
     public List<List<Integer>> permute(int[] nums) {
-        if(nums==null){
+        if(nums==null||nums.length==0){
             return new ArrayList<>();
         }
         List<List<Integer>> res=new ArrayList<>();
@@ -22,15 +24,13 @@ public class Solution {
         }
         int temp;
         for(int i=start;i<=end;i++){
-            if(i==start||nums[i]!=nums[start]){
-                temp=nums[i];
-                nums[i]=nums[start];
-                nums[start]=temp;
-                permuteCore(nums,start+1,end,res);
-                temp=nums[i];
-                nums[i]=nums[start];
-                nums[start]=temp;
-            }
+            temp=nums[i];
+            nums[i]=nums[start];
+            nums[start]=temp;
+            permuteCore(nums,start+1,end,res);
+            temp=nums[i];
+            nums[i]=nums[start];
+            nums[start]=temp;
         }
     }
     public static void main(String[] args){

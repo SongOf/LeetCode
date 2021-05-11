@@ -1,35 +1,30 @@
 package sword2offer.p12;
 
 public class Solution {
+    private int[][] dist = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     public boolean exist(char[][] board, String word) {
-        int row=board.length;
-        int col=board[0].length;
-        if(board==null || board[0]==null || word==null ||word.equals("")){
-            return false;
-        }
-        boolean[][] mark=new boolean[row][col];
-        char[] listWord=word.toCharArray();
-        for(int i=0;i<row;i++){
-            for(int j=0;j<col;j++){
-                if(board[i][j]==listWord[0]){
-                    if(dfs(board,i,j,mark,listWord,0)){
-                        return true;
-                    }
-                }
+        int m = board.length;
+        int n = board[0].length;
+        boolean[][] mark = new boolean[m][n];
+        char[] words = word.toCharArray();
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                if(board[i][j] == words[0] && dfs(board, i, j, words, 0, mark)) return true;
             }
         }
         return false;
     }
-    private boolean dfs(char[][] board,int i,int j,boolean[][] mark,char[] listWord,int pos){
-        if(pos==listWord.length){
-            return true;
+    public boolean dfs(char[][] board, int row, int col, char[] word, int index, boolean[][] mark) {
+        if(index == word.length) return true;
+        if(row < 0 || row >= board.length || col < 0 || col >= board[0].length || mark[row][col] ||  word[index] != board[row][col]) return false;
+        mark[row][col] = true;
+        boolean res = false;
+        for(int i = 0; i < 4; i++) {
+            int newRow = row + dist[i][0];
+            int newCol = col + dist[i][1];
+            res = res || dfs(board, newRow, newCol, word, index + 1, mark);
         }
-        if(i<0||j<0||i>=board.length||j>=board[0].length||mark[i][j]||board[i][j]!=listWord[pos]){
-            return false;
-        }
-        mark[i][j]=true;
-        boolean nextMatch=dfs(board,i+1,j,mark,listWord,pos+1)||dfs(board,i-1,j,mark,listWord,pos+1)||dfs(board,i,j+1,mark,listWord,pos+1)||dfs(board,i,j-1,mark,listWord,pos+1);
-        mark[i][j]=false;
-        return nextMatch;
+        mark[row][col] = false;
+        return res;
     }
 }

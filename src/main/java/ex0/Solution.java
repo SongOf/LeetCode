@@ -2,7 +2,7 @@ package ex0;
 //快速排序、合并排序、堆排序
 public class Solution {
     public void quickSort(int[] nums){
-        if(nums==null||nums.length==0){
+        if(nums == null){
             return;
         }
         quickSortCore(nums,0,nums.length-1);
@@ -17,7 +17,7 @@ public class Solution {
     public int partition(int[] nums,int low,int high){
         int pivot=nums[low];
         while (low<high){
-            while (low<high&&nums[high]>pivot){
+            while (low<high&&nums[high]>=pivot){ //必须有个带等号
                 high--;
             }
             nums[low]=nums[high];
@@ -31,7 +31,7 @@ public class Solution {
     }
 
     public void mergeSort(int[] nums){
-        if(nums==null||nums.length==0){
+        if(nums == null){
             return;
         }
         mergeSortCore(nums,0,nums.length-1);

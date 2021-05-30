@@ -2,30 +2,16 @@ package sword2offer.p39;
 
 public class Solution {
     public int majorityElement(int[] nums) {
-        if(nums==null||nums.length==0){
-            return -1;
-        }
-        int length=nums.length;
-        int tar=nums[0];
-        int tarFre=1;
+        if(nums == null) return -1;
 
-        for(int i=1;i<length;i++){
-            if(tar==nums[i]){
-                tarFre++;
-            }else {
-                tarFre--;
-                if(tarFre==0){
-                    i++;
-                    tar=nums[i];
-                    tarFre=1;
-                }
-            }
+        int tar = -1;
+        int frequency = 0;
+        for(int i = 0; i < nums.length; i ++) {
+            if(frequency == 0) tar = nums[i];
+            if(tar == nums[i]) frequency ++;
+            else frequency --;
         }
-        if(tarFre>=1){
-            return tar;
-        }else {
-            return -1;
-        }
+        return tar;
     }
     public static void main(String[] args){
         Solution solution = new Solution();
